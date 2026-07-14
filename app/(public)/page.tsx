@@ -21,7 +21,7 @@ import {
 import { prisma } from "@/lib/db";
 import { getDictionary, translate, LOCALE_COOKIE, type Locale } from "@/lib/i18n";
 import { PageTransition, FadeIn, Stagger, StaggerItem, Pressable } from "@/components/motion";
-import { StatCard } from "@/components/shared/stat-card";
+import { StatsBand } from "./_components/stats-band";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -191,35 +191,21 @@ export default async function PublicLandingPage() {
       {/* ── Stats band ── */}
       <section className="border-b bg-background">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
-          <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" stagger={0.05}>
-            <StatCard
-              label="Airports safeguarded"
-              value={airports.length}
-              icon={TowerControl}
-              hint={t("common.referenceFigure")}
-            />
-            <StatCard
-              label="System roles"
-              value={11}
-              icon={Users}
-              tone="info"
-              hint="Applicant to Director (ATM)"
-            />
-            <StatCard
-              label={t("public.registerTitle")}
-              value={obstacleCount}
-              icon={MapPinned}
-              tone="warning"
-              hint="Live register entries"
-            />
-            <StatCard
-              label={t("nav.certificates")}
-              value={certificateCount}
-              icon={ShieldCheck}
-              tone="success"
-              hint="Issued and verifiable online"
-            />
-          </Stagger>
+          <StatsBand
+            airportCount={airports.length}
+            obstacleCount={obstacleCount}
+            certificateCount={certificateCount}
+            labels={{
+              airports: "Airports safeguarded",
+              airportsHint: t("common.referenceFigure"),
+              roles: "System roles",
+              rolesHint: "Applicant to Director (ATM)",
+              register: t("public.registerTitle"),
+              registerHint: "Live register entries",
+              certificates: t("nav.certificates"),
+              certificatesHint: "Issued and verifiable online",
+            }}
+          />
         </div>
       </section>
 
