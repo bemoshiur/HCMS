@@ -234,4 +234,6 @@ export const en = {
   },
 } as const;
 
-export type Dictionary = typeof en;
+/** Deep-widened dictionary shape so bn can provide its own strings. */
+type DeepString<T> = { [K in keyof T]: T[K] extends object ? DeepString<T[K]> : string };
+export type Dictionary = DeepString<typeof en>;
