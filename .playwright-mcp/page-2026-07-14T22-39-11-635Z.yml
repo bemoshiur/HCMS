@@ -1,0 +1,143 @@
+- generic [active] [ref=f2e1]:
+  - generic [ref=f2e2]:
+    - complementary "Sidebar" [ref=f2e3]:
+      - generic [ref=f2e8]:
+        - paragraph [ref=f2e9]: CAAB HCMS
+        - paragraph [ref=f2e10]: Civil Aviation Authority of Bangladesh
+      - navigation "Primary" [ref=f2e11]:
+        - generic [ref=f2e12]:
+          - paragraph [ref=f2e13]: Overview
+          - list [ref=f2e14]:
+            - listitem [ref=f2e15]:
+              - link "Dashboard" [ref=f2e16] [cursor=pointer]:
+                - /url: /dashboard
+        - generic [ref=f2e23]:
+          - paragraph [ref=f2e24]: Casework
+          - list [ref=f2e25]:
+            - listitem [ref=f2e26]:
+              - link "Applications" [ref=f2e27] [cursor=pointer]:
+                - /url: /applications
+            - listitem [ref=f2e33]:
+              - link "Evaluate" [ref=f2e34] [cursor=pointer]:
+                - /url: /evaluate
+            - listitem [ref=f2e41]:
+              - link "Studies" [ref=f2e42] [cursor=pointer]:
+                - /url: /studies
+            - listitem [ref=f2e46]:
+              - link "Certificates" [ref=f2e47] [cursor=pointer]:
+                - /url: /certificates
+        - generic [ref=f2e54]:
+          - paragraph [ref=f2e55]: Register
+          - list [ref=f2e56]:
+            - listitem [ref=f2e57]:
+              - link "Obstacles" [ref=f2e58] [cursor=pointer]:
+                - /url: /obstacles
+            - listitem [ref=f2e62]:
+              - link "Monitoring" [ref=f2e63] [cursor=pointer]:
+                - /url: /obstacles/monitoring
+        - generic [ref=f2e72]:
+          - paragraph [ref=f2e73]: Insight
+          - list [ref=f2e74]:
+            - listitem [ref=f2e75]:
+              - link "Reports" [ref=f2e76] [cursor=pointer]:
+                - /url: /reports
+        - generic [ref=f2e80]:
+          - paragraph [ref=f2e81]: Configuration
+          - list [ref=f2e82]:
+            - listitem [ref=f2e83]:
+              - link "Master Data" [ref=f2e84] [cursor=pointer]:
+                - /url: /master-data
+            - listitem [ref=f2e90]:
+              - link "Users" [ref=f2e91] [cursor=pointer]:
+                - /url: /users
+            - listitem [ref=f2e98]:
+              - link "Settings" [ref=f2e99] [cursor=pointer]:
+                - /url: /settings
+        - generic [ref=f2e104]:
+          - paragraph [ref=f2e105]: Compliance
+          - list [ref=f2e106]:
+            - listitem [ref=f2e107]:
+              - link "Audit Trail" [ref=f2e108] [cursor=pointer]:
+                - /url: /audit
+      - button "Collapse sidebar" [expanded] [ref=f2e114]
+    - generic [ref=f2e116]:
+      - banner [ref=f2e117]:
+        - button "Search" [ref=f2e118]:
+          - generic [ref=f2e122]: Search…
+          - generic [ref=f2e123]: ⌘K
+        - generic [ref=f2e124]:
+          - generic [ref=f2e125]: System Administrator
+          - button "Language / ভাষা" [ref=f2e126]:
+            - generic [ref=f2e127]: en
+          - button "Notifications" [ref=f2e128]
+          - button "Profile" [ref=f2e130]:
+            - generic [ref=f2e131]: MA
+            - generic [ref=f2e133]:
+              - generic [ref=f2e134]: Mohammad Ali Siddiqui
+              - generic [ref=f2e135]: System Administrator
+      - main [ref=f2e136]:
+        - generic [ref=f2e137]:
+          - generic [ref=f2e138]:
+            - navigation "Breadcrumb" [ref=f2e139]:
+              - list [ref=f2e140]:
+                - listitem [ref=f2e141]:
+                  - link "Dashboard" [ref=f2e142] [cursor=pointer]:
+                    - /url: /dashboard
+                - listitem [ref=f2e143]:
+                  - generic [ref=f2e146]: Evaluate
+            - heading "OLS Evaluation" [level=1] [ref=f2e149]
+          - generic [ref=f2e150]:
+            - generic [ref=f2e151]:
+              - generic [ref=f2e152]: Airport
+              - combobox "Airport" [disabled] [ref=f2e153]:
+                - generic: Loading…
+            - generic [ref=f2e154]:
+              - switch "Zoning grid" [ref=f2e155]
+              - generic [ref=f2e156]: Zoning grid
+            - button "Download grid (GeoJSON)" [disabled]
+            - list [ref=f2e158]:
+              - listitem [ref=f2e159]: Inner Horizontal
+              - listitem [ref=f2e161]: Conical
+              - listitem [ref=f2e163]: Approach
+              - listitem [ref=f2e165]: Take-off Climb
+              - listitem [ref=f2e167]: Transitional
+          - generic [ref=f2e169]:
+            - generic [ref=f2e170]:
+              - generic "Obstacle limitation surfaces map" [ref=f2e171]:
+                - region "Map" [ref=f2e172]
+                - generic:
+                  - generic [ref=f2e173]:
+                    - button "Zoom in" [ref=f2e174] [cursor=pointer]
+                    - button "Zoom out" [ref=f2e176] [cursor=pointer]
+                  - generic: 2 km
+                  - group [ref=f2e179]:
+                    - generic "Toggle attribution" [ref=f2e180] [cursor=pointer]
+                    - generic [ref=f2e181]: © OpenStreetMap contributors
+              - generic: Click the map to set the site · drag the marker to move it
+            - complementary [ref=f2e182]:
+              - generic [ref=f2e183]:
+                - generic [ref=f2e184]:
+                  - generic [ref=f2e185]:
+                    - generic [ref=f2e186]: Site
+                    - generic [ref=f2e187]: Click the map or drag the marker — coordinates stay in sync. Values re-evaluate automatically.
+                  - generic [ref=f2e189]:
+                    - generic [ref=f2e190]:
+                      - generic [ref=f2e191]: Latitude
+                      - spinbutton "Latitude" [ref=f2e192]
+                    - generic [ref=f2e193]:
+                      - generic [ref=f2e194]: Longitude
+                      - spinbutton "Longitude" [ref=f2e195]
+                    - generic [ref=f2e196]:
+                      - generic [ref=f2e197]: Ground elevation (m AMSL)
+                      - spinbutton "Ground elevation (m AMSL)" [ref=f2e198]
+                    - generic [ref=f2e199]:
+                      - generic [ref=f2e200]: Proposed structure height (m AGL)
+                      - spinbutton "Proposed structure height (m AGL)" [ref=f2e201]: "45"
+                - generic [ref=f2e207]:
+                  - paragraph [ref=f2e208]: No site selected
+                  - paragraph [ref=f2e209]: Click anywhere on the map to drop the site marker, or enter coordinates in the form above.
+    - generic [ref=f2e210]:
+      - heading "Search" [level=2] [ref=f2e211]
+      - paragraph [ref=f2e212]: Search for a command to run...
+  - region "Notifications alt+T"
+  - alert [ref=f2e213]

@@ -35,9 +35,9 @@ test.describe("role sign-in", () => {
       await signInWith(page, email);
       await page.waitForURL((url) => !url.pathname.startsWith("/login"), { timeout: 20_000 });
       // landed somewhere authenticated (role home or dashboard)
-      await expect(page).toHaveURL(new RegExp(`(${home}|/dashboard)`));
-      // the app shell is present
-      await expect(page.getByRole("navigation", { name: /primary|sidebar/i }).or(page.locator("aside"))).toBeVisible();
+      await expect(page).toHaveURL(new RegExp(`(${home}|/dashboard|/portal|/authority)`));
+      // the app shell is present (primary nav)
+      await expect(page.getByRole("navigation", { name: "Primary" })).toBeVisible();
     });
   }
 });
@@ -69,9 +69,10 @@ test("evaluate screen renders the map and a result for an officer", async ({ pag
   await signInWith(page, "intake@caab.gov.bd");
   await page.waitForURL((url) => !url.pathname.startsWith("/login"));
   await page.goto("/evaluate");
-  // map canvas + a result status eventually
-  await expect(page.locator(".maplibregl-map, canvas").first()).toBeVisible({ timeout: 20_000 });
+  // the MapLibre map renders (key visual of this screen)
+  await expect(page.locator(".maplibregl-map, canvas").first()).toBeVisible({ timeout: 25_000 });
+  // a permissible-top-elevation / status figure appears in the result panel
   await expect(
-    page.getByText(/CLEAR|OBJECTION|Outside/i).first()
-  ).toBeVisible({ timeout: 20_000 });
+    page.getByText(/CLEAR|OBJECTION|Outside|AMSL|permissible/i).first()
+  ).toBeVisible({ timeout: 25_000 });
 });

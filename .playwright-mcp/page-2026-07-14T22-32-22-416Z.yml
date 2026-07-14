@@ -1,0 +1,78 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e3]:
+    - generic [ref=f1e5]:
+      - generic [ref=f1e10]:
+        - paragraph [ref=f1e11]: Height Clearance Portal
+        - paragraph [ref=f1e12]: Civil Aviation Authority of Bangladesh
+      - heading "Welcome back" [level=1] [ref=f1e13]
+      - paragraph [ref=f1e14]: Sign in to your workspace
+      - generic [ref=f1e15]:
+        - generic [ref=f1e16]:
+          - generic [ref=f1e17]: Email address
+          - textbox "Email address" [ref=f1e22]:
+            - /placeholder: you@example.gov.bd
+        - generic [ref=f1e23]:
+          - generic [ref=f1e24]: Password
+          - textbox "Password" [ref=f1e30]:
+            - /placeholder: ••••••••
+        - button "Sign in" [disabled]
+      - generic [ref=f1e31]:
+        - button "বাংলায় দেখুন" [ref=f1e32]
+        - generic [ref=f1e33]: Demonstration build
+    - generic [ref=f1e35]:
+      - generic [ref=f1e36]:
+        - heading "Demo accounts" [level=2] [ref=f1e37]
+        - paragraph [ref=f1e38]:
+          - text: "One-click sign-in for evaluation. Shared password:"
+          - code [ref=f1e39]: Demo@1234
+      - generic [ref=f1e40]:
+        - button "Applicant bti Ltd. · applicant@demo.gov.bd" [ref=f1e42]:
+          - generic [ref=f1e47]:
+            - generic [ref=f1e48]: Applicant
+            - generic [ref=f1e49]: bti Ltd. · applicant@demo.gov.bd
+        - button "Approving Authority Officer RAJUK · rajuk@demo.gov.bd" [ref=f1e51]:
+          - generic [ref=f1e55]:
+            - generic [ref=f1e56]: Approving Authority Officer
+            - generic [ref=f1e57]: RAJUK · rajuk@demo.gov.bd
+        - button "Approving Authority Officer CDA · cda@demo.gov.bd" [ref=f1e59]:
+          - generic [ref=f1e63]:
+            - generic [ref=f1e64]: Approving Authority Officer
+            - generic [ref=f1e65]: CDA · cda@demo.gov.bd
+        - button "Approving Authority Officer RDA · rda@demo.gov.bd" [ref=f1e67]:
+          - generic [ref=f1e71]:
+            - generic [ref=f1e72]: Approving Authority Officer
+            - generic [ref=f1e73]: RDA · rda@demo.gov.bd
+        - button "Intake Officer CAAB · intake@caab.gov.bd" [ref=f1e75]:
+          - generic [ref=f1e81]:
+            - generic [ref=f1e82]: Intake Officer
+            - generic [ref=f1e83]: CAAB · intake@caab.gov.bd
+        - button "AGA Reviewer CAAB AGA · aga@caab.gov.bd" [ref=f1e85]:
+          - generic [ref=f1e91]:
+            - generic [ref=f1e92]: AGA Reviewer
+            - generic [ref=f1e93]: CAAB AGA · aga@caab.gov.bd
+        - button "CNS Reviewer CAAB CNS · cns@caab.gov.bd" [ref=f1e95]:
+          - generic [ref=f1e103]:
+            - generic [ref=f1e104]: CNS Reviewer
+            - generic [ref=f1e105]: CAAB CNS · cns@caab.gov.bd
+        - button "PANS-OPS Reviewer CAAB PANS-OPS · pansops@caab.gov.bd" [ref=f1e107]:
+          - generic [ref=f1e113]:
+            - generic [ref=f1e114]: PANS-OPS Reviewer
+            - generic [ref=f1e115]: CAAB PANS-OPS · pansops@caab.gov.bd
+        - button "Director (ATM) Director ATM · director@caab.gov.bd" [ref=f1e117]:
+          - generic [ref=f1e125]:
+            - generic [ref=f1e126]: Director (ATM)
+            - generic [ref=f1e127]: Director ATM · director@caab.gov.bd
+        - button "Study Officer Study Team · study@caab.gov.bd" [ref=f1e129]:
+          - generic [ref=f1e133]:
+            - generic [ref=f1e134]: Study Officer
+            - generic [ref=f1e135]: Study Team · study@caab.gov.bd
+        - button "System Administrator CAAB IT · admin@caab.gov.bd" [ref=f1e137]:
+          - generic [ref=f1e141]:
+            - generic [ref=f1e142]: System Administrator
+            - generic [ref=f1e143]: CAAB IT · admin@caab.gov.bd
+        - button "Auditor Oversight · auditor@caab.gov.bd" [ref=f1e145]:
+          - generic [ref=f1e150]:
+            - generic [ref=f1e151]: Auditor
+            - generic [ref=f1e152]: Oversight · auditor@caab.gov.bd
+  - region "Notifications alt+T"
+  - alert [ref=f1e153]

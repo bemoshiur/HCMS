@@ -1,0 +1,2 @@
+[  120629ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/api/notifications?limit=6:0
+[  121633ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/api/notifications?limit=6:0

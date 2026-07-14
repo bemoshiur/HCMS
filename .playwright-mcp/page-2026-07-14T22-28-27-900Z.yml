@@ -1,0 +1,184 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#public-main"
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "CAAB HCMS" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e12]:
+            - generic [ref=e13]: CAAB HCMS
+            - generic [ref=e14]: Civil Aviation Authority of Bangladesh
+        - navigation "Primary" [ref=e15]:
+          - link "Home" [ref=e16] [cursor=pointer]:
+            - /url: /
+          - link "Height Check" [ref=e17] [cursor=pointer]:
+            - /url: /height-check
+          - link "Verify Certificate" [ref=e18] [cursor=pointer]:
+            - /url: /verify
+          - link "Public Register" [ref=e19] [cursor=pointer]:
+            - /url: /register
+          - link "Guidelines" [ref=e20] [cursor=pointer]:
+            - /url: /guidelines
+        - generic [ref=e21]:
+          - button "Language" [ref=e22]:
+            - generic [ref=e23]: en
+          - link "Sign in" [ref=e24] [cursor=pointer]:
+            - /url: /login
+    - main [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e28]:
+          - paragraph [ref=e30]: Civil Aviation Authority of Bangladesh
+          - heading "Aviation Height Clearance" [level=1] [ref=e36]
+          - paragraph [ref=e38]: Check permissible construction heights near Bangladesh's airports, verify height clearance certificates, and browse the public obstacle register.
+          - generic [ref=e39]:
+            - link "Check permissible height" [ref=e40] [cursor=pointer]:
+              - /url: /height-check
+            - link "Verify a certificate" [ref=e41] [cursor=pointer]:
+              - /url: /verify
+          - generic [ref=e42]:
+            - link [ref=e45] [cursor=pointer]:
+              - /url: /height-check
+              - heading "Check permissible height" [level=2] [ref=e53]
+              - paragraph [ref=e54]: Select an airport and a location to see the indicative permissible top elevation under the Obstacle Limitation Surfaces.
+              - generic [ref=e55]: View
+            - link [ref=e60] [cursor=pointer]:
+              - /url: /verify
+              - heading "Verify a certificate" [level=2] [ref=e65]
+              - paragraph [ref=e66]: Enter the HC number or scan the QR code on the certificate.
+              - generic [ref=e67]: View
+            - link [ref=e72] [cursor=pointer]:
+              - /url: /register
+              - heading "Public register" [level=2] [ref=e77]
+              - paragraph [ref=e78]: Cleared structures and known obstacles near Bangladesh's airports.
+              - generic [ref=e79]: View
+            - link [ref=e84] [cursor=pointer]:
+              - /url: /guidelines
+              - heading "Application guidelines" [level=2] [ref=e88]
+              - paragraph [ref=e89]: Who must apply, the approving-authority route, required documents, fees and the regulatory basis.
+              - generic [ref=e90]: View
+        - generic [ref=e95]:
+          - generic [ref=e97]:
+            - paragraph [ref=e99]: Airports safeguarded
+            - paragraph [ref=e104]: "0"
+            - paragraph [ref=e105]: Reference figure — confirm against CAAB AIP
+          - generic [ref=e107]:
+            - paragraph [ref=e109]: System roles
+            - paragraph [ref=e115]: "0"
+            - paragraph [ref=e116]: Applicant to Director (ATM)
+          - generic [ref=e118]:
+            - paragraph [ref=e120]: Public Obstacle Register
+            - paragraph [ref=e125]: "0"
+            - paragraph [ref=e126]: Live register entries
+          - generic [ref=e128]:
+            - paragraph [ref=e130]: Certificates
+            - paragraph [ref=e134]: "0"
+            - paragraph [ref=e135]: Issued and verifiable online
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - generic [ref=e138]:
+              - heading "Seven safeguarded airports" [level=2] [ref=e139]
+              - paragraph [ref=e140]: Obstacle limitation surfaces are maintained for every operational aerodrome.
+            - generic [ref=e141]: Reference figure — confirm against CAAB AIP
+          - generic [ref=e142]:
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - generic [ref=e146]: VGCB · CXB
+                - generic [ref=e147]: 4.0 m AMSL
+              - paragraph [ref=e148]: Cox's Bazar Airport
+              - paragraph [ref=e149]: Cox's Bazar · RWY 17/35
+            - generic [ref=e151]:
+              - generic [ref=e152]:
+                - generic [ref=e153]: VGEG · CGP
+                - generic [ref=e154]: 4.0 m AMSL
+              - paragraph [ref=e155]: Shah Amanat International Airport
+              - paragraph [ref=e156]: Chattogram · RWY 05/23
+            - generic [ref=e158]:
+              - generic [ref=e159]:
+                - generic [ref=e160]: VGHS · DAC
+                - generic [ref=e161]: 8.0 m AMSL
+              - paragraph [ref=e162]: Hazrat Shahjalal International Airport
+              - paragraph [ref=e163]: Dhaka · RWY 14/32
+            - generic [ref=e165]:
+              - generic [ref=e166]:
+                - generic [ref=e167]: VGJR · JSR
+                - generic [ref=e168]: 6.0 m AMSL
+              - paragraph [ref=e169]: Jashore Airport
+              - paragraph [ref=e170]: Jashore · RWY 16/34
+            - generic [ref=e172]:
+              - generic [ref=e173]:
+                - generic [ref=e174]: VGRJ · RJH
+                - generic [ref=e175]: 20.0 m AMSL
+              - paragraph [ref=e176]: Shah Makhdum Airport
+              - paragraph [ref=e177]: Rajshahi · RWY 17/35
+            - generic [ref=e179]:
+              - generic [ref=e180]:
+                - generic [ref=e181]: VGSY · ZYL
+                - generic [ref=e182]: 15.0 m AMSL
+              - paragraph [ref=e183]: Osmani International Airport
+              - paragraph [ref=e184]: Sylhet · RWY 11/29
+            - generic [ref=e186]:
+              - generic [ref=e187]:
+                - generic [ref=e188]: VGTJ
+                - generic [ref=e189]: 7.0 m AMSL
+              - paragraph [ref=e190]: Tejgaon Airport
+              - paragraph [ref=e191]: Dhaka · RWY 18/36
+        - generic [ref=e193]:
+          - generic [ref=e194]:
+            - heading "How height clearance works" [level=2] [ref=e195]
+            - paragraph [ref=e196]: Applications are routed through your approving authority; CAAB determines the permissible top elevation and issues the certificate.
+          - generic [ref=e197]:
+            - generic [ref=e199]:
+              - generic [ref=e200]: Step 1
+              - heading "Apply via your authority" [level=3] [ref=e207]
+              - paragraph [ref=e208]: Submit through your design-approving authority — RAJUK, CDA, RDA, a city corporation, PWD or your municipality.
+            - generic [ref=e210]:
+              - generic [ref=e211]: Step 2
+              - heading "CAAB review" [level=3] [ref=e218]
+              - paragraph [ref=e219]: Intake scrutiny, then multi-discipline review across AGA, CNS and PANS-OPS safeguarding domains.
+            - generic [ref=e221]:
+              - generic [ref=e222]: Step 3
+              - heading "OLS evaluation" [level=3] [ref=e232]
+              - paragraph [ref=e233]: The site is evaluated against ICAO Annex 14 Obstacle Limitation Surfaces to fix the permissible top elevation.
+            - generic [ref=e235]:
+              - generic [ref=e236]: Step 4
+              - heading "Certificate" [level=3] [ref=e242]
+              - paragraph [ref=e243]: A bilingual Height Clearance Certificate is issued with a QR code that verifies on this site.
+          - link "Application guidelines" [ref=e245] [cursor=pointer]:
+            - /url: /guidelines
+    - contentinfo [ref=e246]:
+      - generic [ref=e247]:
+        - generic [ref=e248]:
+          - generic [ref=e255]:
+            - paragraph [ref=e256]: CAAB HCMS
+            - paragraph [ref=e257]: Civil Aviation Authority of Bangladesh
+          - paragraph [ref=e258]: Aviation height clearance — enquiry, evaluation and certification
+        - generic [ref=e259]:
+          - heading "Overview" [level=2] [ref=e260]
+          - list [ref=e261]:
+            - listitem [ref=e262]:
+              - link "Home" [ref=e263] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e264]:
+              - link "Height Check" [ref=e265] [cursor=pointer]:
+                - /url: /height-check
+            - listitem [ref=e266]:
+              - link "Verify Certificate" [ref=e267] [cursor=pointer]:
+                - /url: /verify
+            - listitem [ref=e268]:
+              - link "Public Register" [ref=e269] [cursor=pointer]:
+                - /url: /register
+            - listitem [ref=e270]:
+              - link "Guidelines" [ref=e271] [cursor=pointer]:
+                - /url: /guidelines
+        - generic [ref=e272]:
+          - heading "Civil Aviation Authority of Bangladesh" [level=2] [ref=e273]
+          - list [ref=e274]:
+            - listitem [ref=e275]: Headquarters, Kurmitola, Dhaka-1229, Bangladesh
+            - listitem [ref=e276]: Air Traffic Management Division
+            - listitem [ref=e277]: ICAO Annex 14 · Annex 10 · Doc 8168
+            - listitem [ref=e278]: Civil Aviation Act 2017 · CAAB ANO (AD) series
+      - generic [ref=e280]:
+        - paragraph [ref=e281]: © 2026 Civil Aviation Authority of Bangladesh
+        - paragraph [ref=e282]: Demonstration build — seeded with reference data. Confirm figures against CAAB AIP.
+  - region "Notifications alt+T"

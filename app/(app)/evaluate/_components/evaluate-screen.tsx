@@ -176,6 +176,14 @@ export function EvaluateScreen({ applicationId }: { applicationId: string | null
     const preferred =
       airportsQ.data.find((a) => a.icao === "VGHS") ?? airportsQ.data[0];
     setIcao(preferred.icao);
+    // Seed a default site ~2 km NE of the reference point so the screen shows a
+    // live evaluation immediately (the brief wants a live result, not a blank
+    // panel). The debounced effect below picks these up and drops the marker.
+    const currentLat = form.getValues("lat");
+    if (currentLat == null || Number.isNaN(currentLat)) {
+      form.setValue("lat", round6(preferred.referenceLat + 0.014), { shouldValidate: true });
+      form.setValue("lon", round6(preferred.referenceLon + 0.014), { shouldValidate: true });
+    }
     const current = form.getValues("groundElevationM");
     if (current == null || Number.isNaN(current)) {
       form.setValue("groundElevationM", preferred.elevationM, {
