@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
-import { canAccessRoute } from "@/lib/auth/permissions";
+import { canAccessRoute, ROLE_HOME } from "@/lib/auth/permissions";
 import { AppShell, type ShellUser } from "@/components/app-shell/shell";
 
 export default async function AuthenticatedLayout({
@@ -17,7 +17,7 @@ export default async function AuthenticatedLayout({
   const pathname =
     headerList.get("x-invoke-path") ?? headerList.get("x-pathname") ?? null;
   if (pathname && !canAccessRoute(session.user.role, pathname)) {
-    redirect("/dashboard");
+    redirect(ROLE_HOME[session.user.role] ?? "/dashboard");
   }
 
   const user: ShellUser = {

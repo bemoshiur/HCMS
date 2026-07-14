@@ -1,35 +1,11 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
-import type { Role } from "@prisma/client";
 import { prisma } from "@/lib/db";
-
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      role: Role;
-      orgId: string | null;
-      orgName: string | null;
-      jurisdiction: string | null;
-      locale: string;
-    };
-  }
-  interface User {
-    role: Role;
-    orgId: string | null;
-    orgName: string | null;
-    jurisdiction: string | null;
-    locale: string;
-  }
-}
+import { authConfig } from "@/auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  session: { strategy: "jwt" },
-  pages: { signIn: "/login" },
-  trustHost: true,
+  ...authConfig,
   providers: [
     Credentials({
       name: "Credentials",
@@ -64,28 +40,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.role = user.role;
-        token.orgId = user.orgId;
-        token.orgName = user.orgName;
-        token.jurisdiction = user.jurisdiction;
-        token.locale = user.locale;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as Role;
-        session.user.orgId = (token.orgId as string | null) ?? null;
-        session.user.orgName = (token.orgName as string | null) ?? null;
-        session.user.jurisdiction = (token.jurisdiction as string | null) ?? null;
-        session.user.locale = (token.locale as string) ?? "en";
-      }
-      return session;
-    },
-  },
 });
