@@ -1,3 +1,14 @@
+# pnpm 10 blocks dependency build scripts unless approved. Approve the native
+# builds the production build needs (Prisma engine, bundler binaries) so CI
+# installs don't fail with ERR_PNPM_IGNORED_BUILDS. sharp is provided by
+# Amplify; @parcel/watcher / unrs-resolver are dev-only file watchers.
+onlyBuiltDependencies:
+  - "@prisma/client"
+  - "@prisma/engines"
+  - prisma
+  - esbuild
+  - "@swc/core"
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+  - "@parcel/watcher"
