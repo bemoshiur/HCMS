@@ -3,6 +3,9 @@
 
 generator client {
   provider = "prisma-client-js"
+  // "native" for local/Docker; "rhel-openssl-3.0.x" for AWS Amplify SSR
+  // compute (Lambda on Amazon Linux 2023 / Node 20+).
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {

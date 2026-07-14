@@ -1,0 +1,27 @@
+# AWS Amplify Hosting build spec — Next.js SSR (WEB_COMPUTE platform).
+# Deploys hcms.ticonsys.com. DATABASE_URL / AUTH_SECRET / AUTH_TRUST_HOST are
+# set as Amplify environment variables (Console → App settings → Environment
+# variables), never committed.
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - corepack enable
+        - corepack prepare pnpm@latest --activate
+        - pnpm install --frozen-lockfile
+        - npx prisma generate
+        # Apply any pending schema migrations to the Neon database (idempotent)
+        - npx prisma migrate deploy
+    build:
+      commands:
+        - pnpm build
+  artifacts:
+    # Amplify auto-detects Next.js SSR from the .next output
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*
