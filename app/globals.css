@@ -7,9 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-mono);
-  --font-heading: var(--font-mono);
+  --font-sans: var(--font-public-sans), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-heading: var(--font-public-sans), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
+  --font-bengali: var(--font-bengali), sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -27,6 +28,12 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -35,96 +42,165 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-sm: 0.375rem; /* 6px */
+  --radius-md: 0.4375rem; /* 7px — inputs */
+  --radius-lg: 0.5625rem; /* 9px — cards */
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.25rem;
+  --radius-4xl: 1.5rem;
 }
 
+/*
+  CAAB HCMS design tokens — modern government enterprise.
+  Primary: deep aviation navy. Status semantics used consistently everywhere:
+  green = clear/approved · red = objection/rejected · amber = study/pending · grey = draft/outside.
+*/
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: #eef2f6; /* app background */
+  --foreground: #17242f; /* near-navy text */
+  --card: #ffffff;
+  --card-foreground: #17242f;
+  --popover: #ffffff;
+  --popover-foreground: #17242f;
+  --primary: #0f3557; /* deep aviation navy */
+  --primary-hover: #16466f;
+  --primary-foreground: #f6fafd;
+  --secondary: #e3ebf2;
+  --secondary-foreground: #0f3557;
+  --muted: #f1f5f8;
+  --muted-foreground: #5b6b79;
+  --accent: #e8f0f7; /* hover surfaces */
+  --accent-foreground: #0f3557;
+  --destructive: #b3261e; /* objection / rejected */
+  --destructive-foreground: #ffffff;
+  --success: #1a7f4b; /* clear / approved */
+  --success-foreground: #ffffff;
+  --warning: #9a6a00; /* study / conditional / pending */
+  --warning-foreground: #ffffff;
+  --info: #1e6fb8; /* links / focus / informational */
+  --border: #dfe6ec;
+  --input: #d3dde5;
+  --ring: #1e6fb8;
+  --chart-1: #1e6fb8;
+  --chart-2: #0f3557;
+  --chart-3: #1a7f4b;
+  --chart-4: #c9992e;
+  --chart-5: #b3261e;
+  --radius: 0.5625rem;
+  --sidebar: #0c2941; /* dark navy sidebar */
+  --sidebar-foreground: #c2d4e3;
+  --sidebar-primary: #1e6fb8;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(255, 255, 255, 0.08);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.09);
+  --sidebar-ring: #5b9bd5;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #0d1720;
+  --foreground: #e4ecf3;
+  --card: #14212d;
+  --card-foreground: #e4ecf3;
+  --popover: #14212d;
+  --popover-foreground: #e4ecf3;
+  --primary: #4f8fca;
+  --primary-hover: #6aa3d6;
+  --primary-foreground: #08131d;
+  --secondary: #1d2f3f;
+  --secondary-foreground: #cfdde9;
+  --muted: #1a2937;
+  --muted-foreground: #8ba1b4;
+  --accent: #1d3345;
+  --accent-foreground: #d7e5f0;
+  --destructive: #e5534b;
+  --destructive-foreground: #ffffff;
+  --success: #34a06c;
+  --success-foreground: #06130c;
+  --warning: #c9992e;
+  --warning-foreground: #171106;
+  --info: #5b9bd5;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #5b9bd5;
+  --chart-1: #5b9bd5;
+  --chart-2: #9db8d0;
+  --chart-3: #34a06c;
+  --chart-4: #c9992e;
+  --chart-5: #e5534b;
+  --sidebar: #0a1b2a;
+  --sidebar-foreground: #b7c9d9;
+  --sidebar-primary: #4f8fca;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgba(255, 255, 255, 0.07);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #5b9bd5;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
-    @apply font-mono;
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "tnum" 1; /* tabular numbers for data tables */
+  }
+  :lang(bn) {
+    font-family: var(--font-bengali), var(--font-public-sans), sans-serif;
+  }
+  /* Focus visibility (WCAG 2.1 AA) */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  /* Status text/background helpers used across badges, markers, charts */
+  .text-status-clear { color: var(--success); }
+  .text-status-objection { color: var(--destructive); }
+  .text-status-pending { color: var(--warning); }
+  .text-status-outside { color: var(--muted-foreground); }
+
+  /* Subtle glass effect for topbar/overlays (single tasteful accent) */
+  .glass-surface {
+    background: color-mix(in srgb, var(--card) 86%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* MapLibre overrides to match design system */
+.maplibregl-popup-content {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(15, 53, 87, 0.12);
+  font-family: var(--font-sans);
+  padding: 0.75rem;
+}
+.maplibregl-ctrl-group {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Reduced motion: kill non-essential animation globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
