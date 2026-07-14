@@ -1,0 +1,498 @@
+// CAAB Height Clearance Management System — data model
+// PostgreSQL + PostGIS (spatial queries via raw SQL where needed)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────── Enums ───────────────────────────────
+
+enum Role {
+  APPLICANT
+  AUTHORITY_OFFICER
+  INTAKE_OFFICER
+  AGA_REVIEWER
+  CNS_REVIEWER
+  PANSOPS_REVIEWER
+  APPROVER
+  STUDY_OFFICER
+  ADMIN
+  AUDITOR
+}
+
+enum OrgType {
+  APPLICANT
+  AUTHORITY
+  CAAB
+}
+
+enum ApproachType {
+  NON_INSTRUMENT
+  NON_PRECISION
+  PRECISION_I
+  PRECISION_II
+  PRECISION_III
+}
+
+enum NavaidType {
+  VOR
+  DME
+  ILS_GP
+  ILS_LOC
+  NDB
+}
+
+enum OlsFramework {
+  ANNEX14_CLASSIC
+  OFS_OES
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  ENDORSED
+  INTAKE_SCRUTINY
+  UNDER_REVIEW
+  STUDY
+  DECISION_PENDING
+  APPROVED
+  REJECTED
+  RETURNED_FOR_INFO
+  CERTIFICATE_ISSUED
+  REVALIDATION
+  EXPIRED
+  REVOKED
+}
+
+enum EvalStatus {
+  CLEAR
+  OBJECTION
+  OUTSIDE
+}
+
+enum Discipline {
+  AGA
+  CNS
+  PANSOPS
+}
+
+enum ReviewVerdict {
+  CONFIRM
+  OVERRIDE
+  REFER_STUDY
+}
+
+enum StudyType {
+  AERONAUTICAL
+  SHIELDING
+}
+
+enum StudyOutcome {
+  PERMIT_WITH_CONDITIONS
+  REFUSE
+}
+
+enum CertDecision {
+  GRANTED
+  OBJECTION
+}
+
+enum CertStatus {
+  ISSUED
+  REVOKED
+  EXPIRED
+  SUPERSEDED
+}
+
+enum ObstacleSource {
+  CERTIFIED
+  SURVEY
+  COMPLAINT
+}
+
+enum ObstacleStatus {
+  COMPLIANT
+  PENETRATING
+  UNDER_MONITORING
+  ILLEGAL
+}
+
+enum DocumentType {
+  OWNERSHIP
+  SITE_PLAN
+  ELEVATION_CERT
+  MOUZA_MAP
+  OTHER
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  IN_APP
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PAID
+  WAIVED
+}
+
+// ─────────────────────────────── Core ───────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role
+  orgId        String?
+  org          Organization? @relation(fields: [orgId], references: [id])
+  jurisdiction String?
+  phone        String?
+  locale       String   @default("en")
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  applicationsCreated Application[]     @relation("CreatedBy")
+  reviews             DisciplineReview[]
+  studies             Study[]
+  certificatesSigned  Certificate[]
+  notifications       Notification[]
+  auditLogs           AuditLog[]
+  caseEvents          CaseEvent[]
+  documentsUploaded   DocumentFile[]
+  assignedApplications Application[]    @relation("AssignedOfficer")
+}
+
+model Organization {
+  id           String  @id @default(cuid())
+  type         OrgType
+  name         String
+  nameBn       String?
+  tradeLicense String?
+  authorityCode String?
+  city         String?
+  contact      String?
+  active       Boolean @default(true)
+  createdAt    DateTime @default(now())
+
+  users        User[]
+  applicationsAsApplicant Application[] @relation("ApplicantOrg")
+  applicationsAsAuthority Application[] @relation("AuthorityOrg")
+}
+
+// ─────────────────────────── Aerodrome data ───────────────────────────
+
+model Airport {
+  id           String  @id @default(cuid())
+  icao         String  @unique
+  iata         String?
+  name         String
+  nameBn       String?
+  city         String
+  elevationM   Float
+  referenceLat Float
+  referenceLon Float
+  active       Boolean @default(true)
+
+  runways          Runway[]
+  navaids          Navaid[]
+  olsParameterSets OlsParameterSet[]
+  applications     Application[]
+  obstacles        Obstacle[]
+}
+
+model Runway {
+  id            String       @id @default(cuid())
+  airportId     String
+  airport       Airport      @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  designator    String // e.g. "14/32"
+  code          Int // ICAO reference code 1-4
+  approachType  ApproachType
+  lengthM       Float
+  trueBearingDeg Float // bearing of the lower designator end→higher end
+
+  thresholds Threshold[]
+}
+
+model Threshold {
+  id          String  @id @default(cuid())
+  runwayId    String
+  runway      Runway  @relation(fields: [runwayId], references: [id], onDelete: Cascade)
+  name        String // e.g. "14", "32"
+  lat         Float
+  lon         Float
+  elevationM  Float
+  approximate Boolean @default(true)
+}
+
+model Navaid {
+  id                String     @id @default(cuid())
+  airportId         String
+  airport           Airport    @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  type              NavaidType
+  name              String?
+  lat               Float
+  lon               Float
+  protectionRadiusM Float
+  note              String?
+}
+
+model OlsParameterSet {
+  id            String       @id @default(cuid())
+  airportId     String
+  airport       Airport      @relation(fields: [airportId], references: [id], onDelete: Cascade)
+  version       Int
+  effectiveFrom DateTime
+  framework     OlsFramework @default(ANNEX14_CLASSIC)
+  json          Json // all surface parameters (see /lib/ols types)
+  signedOffBy   String?
+  active        Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+
+  @@unique([airportId, version])
+}
+
+// ─────────────────────────── Casework ───────────────────────────
+
+model Application {
+  id                       String            @id @default(cuid())
+  refNo                    String            @unique
+  applicantOrgId           String
+  applicantOrg             Organization      @relation("ApplicantOrg", fields: [applicantOrgId], references: [id])
+  authorityOrgId           String?
+  authorityOrg             Organization?     @relation("AuthorityOrg", fields: [authorityOrgId], references: [id])
+  airportId                String
+  airport                  Airport           @relation(fields: [airportId], references: [id])
+  structureType            String
+  siteAddress              String?
+  lat                      Float
+  lon                      Float
+  groundElevationM         Float
+  requestedHeightAglM      Float
+  requestedTopElevationAmslM Float
+  status                   ApplicationStatus @default(DRAFT)
+  slaDueAt                 DateTime?
+  assignedDisciplines      Discipline[]
+  assignedOfficerId        String?
+  assignedOfficer          User?             @relation("AssignedOfficer", fields: [assignedOfficerId], references: [id])
+  createdById              String
+  createdBy                User              @relation("CreatedBy", fields: [createdById], references: [id])
+  submittedAt              DateTime?
+  decidedAt                DateTime?
+  createdAt                DateTime          @default(now())
+  updatedAt                DateTime          @updatedAt
+
+  evaluationResults EvaluationResult[]
+  disciplineReviews DisciplineReview[]
+  studies           Study[]
+  certificates      Certificate[]
+  documents         DocumentFile[]
+  caseEvents        CaseEvent[]
+  feeInvoices       FeeInvoice[]
+  obstacles         Obstacle[]
+
+  @@index([status])
+  @@index([airportId])
+  @@index([applicantOrgId])
+  @@index([authorityOrgId])
+}
+
+model EvaluationResult {
+  id              String     @id @default(cuid())
+  applicationId   String
+  application     Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  governingSurface String?
+  ptE_amslM       Float?
+  permissibleAglM Float?
+  penetrationM    Float?
+  status          EvalStatus
+  surfaces        Json // full per-surface breakdown
+  computedAt      DateTime   @default(now())
+  engineVersion   String
+}
+
+model DisciplineReview {
+  id                 String        @id @default(cuid())
+  applicationId      String
+  application        Application   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  discipline         Discipline
+  reviewerId         String?
+  reviewer           User?         @relation(fields: [reviewerId], references: [id])
+  verdict            ReviewVerdict?
+  overrideValueAmslM Float?
+  remarks            String?
+  decidedAt          DateTime?
+  createdAt          DateTime      @default(now())
+
+  @@unique([applicationId, discipline])
+}
+
+model Study {
+  id                 String       @id @default(cuid())
+  applicationId      String
+  application        Application  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  type               StudyType
+  findings           String?
+  proposedConditions String[]
+  outcome            StudyOutcome?
+  officerId          String?
+  officer            User?        @relation(fields: [officerId], references: [id])
+  decidedAt          DateTime?
+  createdAt          DateTime     @default(now())
+}
+
+model Certificate {
+  id              String       @id @default(cuid())
+  hcNo            String       @unique
+  applicationId   String
+  application     Application  @relation(fields: [applicationId], references: [id])
+  decision        CertDecision
+  ptE_amslM       Float
+  permissibleAglM Float
+  governingSurface String?
+  conditions      String[]
+  validFrom       DateTime
+  validTo         DateTime
+  qrToken         String       @unique
+  status          CertStatus   @default(ISSUED)
+  signedById      String?
+  signedBy        User?        @relation(fields: [signedById], references: [id])
+  supersededById  String?
+  issuedAt        DateTime     @default(now())
+
+  @@index([status])
+}
+
+model Obstacle {
+  id                  String         @id @default(cuid())
+  airportId           String
+  airport             Airport        @relation(fields: [airportId], references: [id])
+  name                String?
+  lat                 Float
+  lon                 Float
+  topElevationAmslM   Float
+  heightAglM          Float?
+  source              ObstacleSource
+  structureType       String
+  status              ObstacleStatus @default(COMPLIANT)
+  linkedApplicationId String?
+  linkedApplication   Application?   @relation(fields: [linkedApplicationId], references: [id])
+  remarks             String?
+  lastCheckedAt       DateTime?
+  createdAt           DateTime       @default(now())
+
+  @@index([airportId])
+  @@index([status])
+}
+
+model DocumentFile {
+  id            String       @id @default(cuid())
+  applicationId String
+  application   Application  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  type          DocumentType
+  filename      String
+  url           String
+  data          Bytes? // demo storage in DB (serverless-safe, works on Vercel)
+  sizeBytes     Int?
+  mimeType      String?
+  version       Int          @default(1)
+  uploadedById  String?
+  uploadedBy    User?        @relation(fields: [uploadedById], references: [id])
+  uploadedAt    DateTime     @default(now())
+}
+
+model FeeInvoice {
+  id            String        @id @default(cuid())
+  applicationId String
+  application   Application   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  invoiceNo     String        @unique
+  amount        Float
+  currency      String        @default("BDT")
+  status        InvoiceStatus @default(UNPAID)
+  method        String?
+  paidAt        DateTime?
+  createdAt     DateTime      @default(now())
+}
+
+// ─────────────────────── Notifications / audit ───────────────────────
+
+model Notification {
+  id      String              @id @default(cuid())
+  userId  String
+  user    User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  channel NotificationChannel
+  event   String
+  title   String
+  body    String
+  link    String?
+  read    Boolean             @default(false)
+  sentAt  DateTime            @default(now())
+
+  @@index([userId, read])
+}
+
+model AuditLog {
+  id       String   @id @default(cuid())
+  actorId  String?
+  actor    User?    @relation(fields: [actorId], references: [id])
+  action   String
+  entity   String
+  entityId String?
+  before   Json?
+  after    Json?
+  ip       String?
+  at       DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([at])
+}
+
+model CaseEvent {
+  id            String      @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  type          String // SUBMITTED, ENDORSED, ASSIGNED, REVIEWED, MESSAGE, ...
+  actorId       String?
+  actor         User?       @relation(fields: [actorId], references: [id])
+  note          String?
+  internal      Boolean     @default(false)
+  at            DateTime    @default(now())
+
+  @@index([applicationId, at])
+}
+
+// ─────────────────────── Master data / settings ───────────────────────
+
+model StructureTypeDef {
+  id     String  @id @default(cuid())
+  name   String  @unique
+  nameBn String?
+  active Boolean @default(true)
+}
+
+model FeeScheduleItem {
+  id            String  @id @default(cuid())
+  structureType String
+  heightBandM   String // e.g. "0-50", "50-150", "150+"
+  amount        Float
+  currency      String  @default("BDT")
+  active        Boolean @default(true)
+}
+
+model SystemSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model Counter {
+  key   String @id // e.g. "HC-2026", "APP-2026"
+  value Int    @default(0)
+}
