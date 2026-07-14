@@ -11,8 +11,10 @@ frontend:
         - corepack enable
         - pnpm install --frozen-lockfile
         - npx prisma generate
-        # Apply any pending schema migrations to the Neon database (idempotent)
-        - npx prisma migrate deploy
+        # Apply pending migrations against Neon's DIRECT endpoint — the pooled
+        # (PgBouncer) endpoint can't hold the advisory lock migrate needs (P1002).
+        # Falls back to DATABASE_URL when DIRECT_URL isn't set.
+        - DATABASE_URL="${DIRECT_URL:-$DATABASE_URL}" npx prisma migrate deploy
     build:
       commands:
         # Amplify does NOT expose console env vars to the SSR runtime by default.
