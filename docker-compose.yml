@@ -32,7 +32,7 @@ services:
       NEXT_PUBLIC_APP_URL: http://localhost:3000
     ports:
       - "3000:3000"
-    command: sh -c "npx prisma migrate deploy && npx tsx prisma/seed.ts && node server.js"
+    # migrate + seed + serve is the image's default CMD (see Dockerfile)
 
 volumes:
   hcms-pgdata:
