@@ -15,6 +15,11 @@ frontend:
         - npx prisma migrate deploy
     build:
       commands:
+        # Amplify does NOT expose console env vars to the SSR runtime by default.
+        # Write the server-side vars into .env.production so Next.js loads them
+        # at request time on the compute (Lambda). See:
+        # https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html
+        - env | grep -e DATABASE_URL -e AUTH_SECRET -e AUTH_TRUST_HOST -e NEXT_PUBLIC_ >> .env.production
         - pnpm build
   artifacts:
     # Amplify auto-detects Next.js SSR from the .next output
