@@ -14,7 +14,8 @@ export type NotifyEvent =
   | "CERTIFICATE_ISSUED"
   | "CERTIFICATE_REVOKED"
   | "CERTIFICATE_EXPIRING"
-  | "OBSTACLE_FLAGGED";
+  | "OBSTACLE_FLAGGED"
+  | "AWS_MARKETPLACE_ONBOARDED";
 
 export async function notify(options: {
   userId: string;

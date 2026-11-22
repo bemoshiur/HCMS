@@ -16,6 +16,8 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@aws-sdk/client-marketplace-entitlement-service": "^3.1175.0",
+    "@aws-sdk/client-marketplace-metering": "^3.1175.0",
     "@hookform/resolvers": "^5.4.0",
     "@phosphor-icons/react": "^2.1.10",
     "@prisma/client": "^6.19.3",

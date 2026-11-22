@@ -499,3 +499,41 @@ model Counter {
   key   String @id // e.g. "HC-2026", "APP-2026"
   value Int    @default(0)
 }
+
+// ───────────────────────── AWS Marketplace ─────────────────────────
+
+/// One row per AWS Marketplace SaaS license. Keyed by LicenseArn because AWS's
+/// Concurrent Agreements model (required for SaaS products created after 1 June
+/// 2026) lets one AWS account hold several licenses for the same product. Created
+/// by /api/aws/register (buyer redirect) or /api/aws/events (EventBridge),
+/// whichever arrives first. HCMS is deployed per aviation authority, so a purchase
+/// starts a TiCON onboarding (contact capture), not an automatic tenant.
+model MarketplaceLicense {
+  id                       String    @id @default(cuid())
+  licenseArn               String
+  agreementId              String?
+  customerIdentifier       String?
+  customerAwsAccountId     String
+  productCode              String
+  /// registered | active | deprovisioned | agreement-ended
+  subscriptionStatus       String    @default("registered")
+  entitlementDimension     String?
+  entitlementExpiresAt     DateTime?
+  entitlementRaw           Json?
+  entitlementCheckedAt     DateTime?
+  /// SHA-256 of the one-time onboarding token; never the token itself.
+  onboardingTokenHash      String?   @unique
+  onboardingTokenExpiresAt DateTime?
+  organisationName         String?
+  contactName              String?
+  contactEmail             String?
+  contactPhone             String?
+  country                  String?
+  onboardingSubmittedAt    DateTime?
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  @@unique([productCode, licenseArn])
+  @@index([customerAwsAccountId])
+  @@index([agreementId])
+}
